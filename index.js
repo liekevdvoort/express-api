@@ -4,12 +4,12 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-var content = [
+var contentDatabase = [
     { uploadedfile: "c:/test/test", filelocation: "Shared/testlieke" },
 ];
 
 app.get("/getLocalContent", (req, res) => {
-    res.send(content);
+    res.send(contentDatabase);
 });
 
 app.get("/", (req, res) => {
@@ -17,8 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/postContentToBsn", (req, res) => {
-    content.push(req.headers);
-    return res.send(req.headers);
+    const content = req.body;
+    contentDatabase.push(content);
+    return res.status(201).send("created content");
 });
 
 // standards
